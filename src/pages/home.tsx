@@ -1,42 +1,33 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useContext } from 'react';
+
 import { ItemList } from '../components/item-list';
+import { ItemsContext, useTrackedItems } from '../data';
 
 interface HomePageProps {
 
 }
 
 export function HomePage({ }: HomePageProps): ReactElement {
-  const items = [
-    {
-      id: '25867',
-      name: 'Earthstorm Diamond',
-      craftingCost: 51.47,
-      sellPrice: 75.9,
-      profitMargin: 24.43,
-      profitMarginPercentage: 32.19
-    },
-    {
-      id: '23530',
-      name: 'Feelsteel Shield Spike',
-      craftingCost: 115.76,
-      sellPrice: 179.98,
-      profitMargin: 24.22,
-      profitMarginPercentage: 13.46
-    },
-    {
-      id: '13511',
-      name: 'Flask of Distilled Wisdom',
-      craftingCost: 55.56,
-      sellPrice: 71.6,
-      profitMargin: 16.04,
-      profitMarginPercentage: 22.41
-    }
-  ];
+  const { items } = useContext(ItemsContext);
+
+  const { trackedItemIds } = useTrackedItems();
+
+  const trackedItems = items.filter(item => trackedItemIds.includes(item.id));
+
+  if (trackedItems.length === 0) {
+    return (
+      <div>
+        You are not tracking any items.
+      </div>
+    );
+  }
+
+  console.log(trackedItems)
 
   return (
     <div>
 
-      <ItemList items={ items } />
+      <ItemList items={ trackedItems } />
 
     </div>
   );
