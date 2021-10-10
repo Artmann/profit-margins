@@ -39,19 +39,19 @@ export function ItemList({ items }: ItemListProps): ReactElement {
           Item
         </div>
         <div
-          className="cursor-pointer select-none px-4 w-32"
+          className="cursor-pointer select-none px-4 w-32 text-right"
           onClick={ () => onSortBy('craftingCost') }
         >
           Crafting Cost
         </div>
         <div
-          className="cursor-pointer select-none px-4 w-32"
+          className="cursor-pointer select-none px-4 w-32 text-right"
           onClick={ () => onSortBy('sellPrice') }
         >
           Sell Price
         </div>
         <div
-          className="cursor-pointer select-none px-4 w-40"
+          className="cursor-pointer select-none px-4 w-40 text-right"
           onClick={ () => onSortBy('profit') }
         >
           Profit Margin
