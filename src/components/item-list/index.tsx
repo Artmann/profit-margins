@@ -1,4 +1,5 @@
 import React, { ReactElement, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Item } from '../../data';
 
@@ -71,7 +72,9 @@ export function ItemList({ items }: ItemListProps): ReactElement {
             </div>
 
             <div className="flex-1">
-              { item.name }
+              <Link to={ `/items/${ item.id }` }>
+                { item.name }
+              </Link>
             </div>
 
             <div className="px-4 w-32 text-right">
