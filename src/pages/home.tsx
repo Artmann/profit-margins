@@ -10,12 +10,17 @@ interface HomePageProps {
 }
 
 export function HomePage({ }: HomePageProps): ReactElement {
-
+  const { items } = useContext(ItemsContext);
 
   return (
     <div>
       <SearchBar />
+
       <TrackedItemsList />
+
+      <div className="mb-16" />
+
+      <ItemList items={ items } />
     </div>
   );
 }
