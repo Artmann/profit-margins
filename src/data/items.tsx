@@ -5,8 +5,8 @@ export interface Item {
   name: string;
   craftingCost: number;
   sellPrice: number;
+  profit: number;
   profitMargin: number;
-  profitMarginPercentage: number;
 }
 
 type ItemContextProps = {
@@ -58,8 +58,8 @@ async function loadItems(): Promise<Item[]> {
     name: item.Name,
     craftingCost: item.CraftingCost || 0,
     sellPrice: item.SellPrice || 0,
-    profitMargin: item.ProfitMargin || 0,
-    profitMarginPercentage: item.ProfitMarginPercentage || 0
+    profit: item.Profit || 0,
+    profitMargin: item.ProfitMargin || 0
   }));
 
   return items;

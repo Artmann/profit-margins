@@ -10,25 +10,42 @@ export function ItemList({ items }: ItemListProps): ReactElement {
   return (
     <div>
 
-      <div className="flex font-medium">
+      <div className="flex font-medium mb-8 p-2">
 
         <div className="w-16"></div>
         <div className="flex-1">Item</div>
-        <div>Crafting Cost</div>
-        <div>Sell Price</div>
-        <div>Profit Margin</div>
+        <div className="px-4 w-32">Crafting Cost</div>
+        <div className="px-4 w-32">Sell Price</div>
+        <div className="px-4 w-32">Profit Margin</div>
 
       </div>
 
       {
         items.map(item => (
-          <div className="flex" key={ item.id }>
+          <div
+            className="flex mb-4 p-2"
+            key={ item.id }
+          >
 
-            <div className="w-16"></div>
-            <div className="flex-1">{ item.name }</div>
-            <div>{ item.craftingCost }</div>
-            <div>{ item.sellPrice }</div>
-            <div>{ item.profitMargin } ({ item.profitMarginPercentage }%)</div>
+            <div className="w-16">
+
+            </div>
+
+            <div className="flex-1">
+              { item.name }
+            </div>
+
+            <div className="px-4 w-32 text-right">
+              { item.craftingCost }g
+            </div>
+
+            <div className="px-4 w-32 text-right">
+              { item.sellPrice }g
+            </div>
+
+            <div className="px-4 w-32 text-right">
+              { item.profit }g ({ item.profitMargin }%)
+            </div>
 
           </div>
         ))
