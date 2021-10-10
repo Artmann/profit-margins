@@ -53,16 +53,21 @@ export function ItemsProvider({ children }: ItemsProviderProps): ReactElement {
 async function loadItems(): Promise<Item[]> {
   const itemMap = await fetchItems();
 
+  const round = (val: number): number => {
+    const rounded = Math.round(val * 100.0) / 100;
+
+    return rounded;
+  };
+
   const items = Object.values(itemMap).map((item: any): Item => ({
     id: item.Id,
     name: item.Name,
-    craftingCost: item.CraftingCost || 0,
-    sellPrice: item.SellPrice || 0,
-    profit: item.Profit || 0,
-    profitMargin: item.ProfitMargin || 0
-  }));
-
-  return items;
+    craftingCost: round(item.CraftingCost || 0),
+    sellPrice: round(item.SellPrice || 0),
+    profit: round(item.Profit || 0),
+    profitMargin: round(item.ProfitMargin || 0)
+  }))
+  return items
 }
 
 async function fetchItems(): Promise<Record<string, any>> {

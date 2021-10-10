@@ -31,6 +31,7 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': 'off',
     '@typescript-eslint/no-empty-interface': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
+    'no-debugger': 'off',
     'no-empty-pattern': 'off',
     'array-bracket-spacing': [ 'error', 'always' ],
     'block-scoped-var': 'error',
