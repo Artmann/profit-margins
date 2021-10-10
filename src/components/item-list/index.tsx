@@ -51,7 +51,7 @@ export function ItemList({ items }: ItemListProps): ReactElement {
           Sell Price
         </div>
         <div
-          className="cursor-pointer select-none px-4 w-32"
+          className="cursor-pointer select-none px-4 w-40"
           onClick={ () => onSortBy('profit') }
         >
           Profit Margin
@@ -62,7 +62,7 @@ export function ItemList({ items }: ItemListProps): ReactElement {
       {
         sortedItems.map(item => (
           <div
-            className="flex mb-4 p-2"
+            className="flex mb-4 p-2 text-sm"
             key={ item.id }
           >
 
@@ -82,7 +82,7 @@ export function ItemList({ items }: ItemListProps): ReactElement {
               { item.sellPrice }g
             </div>
 
-            <div className="px-4 w-32 text-right">
+            <div className="px-4 w-40 text-right">
               { item.profit }g ({ item.profitMargin }%)
             </div>
 
