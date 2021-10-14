@@ -7,7 +7,7 @@ import { ItemPage } from './pages/item';
 
 export default function App(): ReactElement {
   return (
-    <div className="">
+    <div className="text-gray-300">
       <div className="container mx-auto max-w-5xl">
 
         <ItemsProvider>

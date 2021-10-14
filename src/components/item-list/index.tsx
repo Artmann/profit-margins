@@ -31,11 +31,11 @@ export function ItemList({ items, title }: ItemListProps): ReactElement {
   return (
     <div>
 
-      <h2 className="font-medium text-xl uppercase tracking-wide mb-6 text-gray-700">
+      <h2 className="font-medium text-xl uppercase tracking-wide mb-6 ">
         { title }
       </h2>
 
-      <div className="flex font-medium mb-4">
+      <div className="flex font-medium mb-4 px-2">
 
         <div className="w-16"></div>
         <div
@@ -68,8 +68,9 @@ export function ItemList({ items, title }: ItemListProps): ReactElement {
       {
         sortedItems.map(item => (
           <div
-            className="flex mb-4 py-2 text-sm"
+            className="flex mb-6 px-2 py-6 shadow-md text-sm"
             key={ item.id }
+            style={{ backgroundColor: '#252526' }}
           >
 
             <div className="w-16">
@@ -77,7 +78,10 @@ export function ItemList({ items, title }: ItemListProps): ReactElement {
             </div>
 
             <div className="flex-1">
-              <Link to={ `/items/${ item.id }` }>
+              <Link
+                className="hover:underline"
+                to={ `/items/${ item.id }` }
+              >
                 { item.name }
               </Link>
             </div>
