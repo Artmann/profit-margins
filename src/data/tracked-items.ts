@@ -10,7 +10,7 @@ export function useTrackedItems(): UseTrackedItems {
   const [ itemIds, setItemIds ] = useState<string[]>(loadTrackedItems);
 
   const trackItem = (itemId: string): void => {
-    const newIds = [ ...itemIds, itemId ];
+    const newIds = [ ...loadTrackedItems(), itemId ];
 
     setItemIds(newIds);
 
@@ -18,7 +18,9 @@ export function useTrackedItems(): UseTrackedItems {
   };
 
   const stopTrackingItem = (itemId: string): void => {
-    const newIds = itemIds.filter(id => id !== itemId);
+    const trackedItems = loadTrackedItems();
+
+    const newIds = trackedItems.filter(id => id !== itemId);
 
     setItemIds(newIds);
 
