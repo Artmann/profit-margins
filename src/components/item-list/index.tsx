@@ -5,9 +5,10 @@ import { Item } from '../../data';
 
 interface ItemListProps {
   items: Item[];
+  title: string;
 }
 
-export function ItemList({ items }: ItemListProps): ReactElement {
+export function ItemList({ items, title }: ItemListProps): ReactElement {
   const [ sortBy, setSortBy ] = useState('name');
   const [ sortAsc, setSortAsc ] = useState(true);
 
@@ -30,7 +31,11 @@ export function ItemList({ items }: ItemListProps): ReactElement {
   return (
     <div>
 
-      <div className="flex font-medium mb-8 p-2">
+      <h2 className="font-medium text-xl uppercase tracking-wide mb-6 text-gray-700">
+        { title }
+      </h2>
+
+      <div className="flex font-medium mb-4">
 
         <div className="w-16"></div>
         <div
@@ -63,7 +68,7 @@ export function ItemList({ items }: ItemListProps): ReactElement {
       {
         sortedItems.map(item => (
           <div
-            className="flex mb-4 p-2 text-sm"
+            className="flex mb-4 py-2 text-sm"
             key={ item.id }
           >
 

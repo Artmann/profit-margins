@@ -20,7 +20,11 @@ export function HomePage({ }: HomePageProps): ReactElement {
 
       <div className="mb-16" />
 
-      <ItemList items={ items } />
+      <ItemList
+        items={ items.filter(i => i.craftingCost > 0) }
+        title="Craftable Items"
+      />
+
     </div>
   );
 }
@@ -57,7 +61,6 @@ function SearchBar(): ReactElement {
 
     if (matchingItems.length > 0) {
       const [ firstMatchingItem ] = matchingItems;
-      console.log(matchingItems[0])
 
       history.push(`/items/${ firstMatchingItem.id }`);
     }
@@ -69,7 +72,6 @@ function SearchBar(): ReactElement {
     history.push(`/items/${ itemId }`);
   };
 
-  console.log(matchingItems.slice(0, 6));
   return (
     <div className="w-full">
       <form
@@ -137,7 +139,10 @@ function TrackedItemsList(): ReactElement {
 
   return (
     <div>
-      <ItemList items={ trackedItems } />
+      <ItemList
+        items={ trackedItems }
+        title="Your Favorite Items"
+      />
     </div>
   );
 }
