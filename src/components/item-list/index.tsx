@@ -45,19 +45,19 @@ export function ItemList({ items, title }: ItemListProps): ReactElement {
           Item
         </div>
         <div
-          className="cursor-pointer select-none px-4 w-32 text-right"
+          className="cursor-pointer select-none px-4 w-36 text-right"
           onClick={ () => onSortBy('craftingCost') }
         >
           Crafting Cost
         </div>
         <div
-          className="cursor-pointer select-none px-4 w-32 text-right"
+          className="cursor-pointer select-none px-4 w-36 text-right"
           onClick={ () => onSortBy('sellPrice') }
         >
           Sell Price
         </div>
         <div
-          className="cursor-pointer select-none px-4 w-40 text-right"
+          className="cursor-pointer select-none px-4 w-48 text-right"
           onClick={ () => onSortBy('profit') }
         >
           Profit Margin
@@ -86,15 +86,15 @@ export function ItemList({ items, title }: ItemListProps): ReactElement {
               </Link>
             </div>
 
-            <div className="px-4 w-32 text-right">
+            <div className="px-4 w-36 text-right">
               { item.craftingCost }g
             </div>
 
-            <div className="px-4 w-32 text-right">
+            <div className="px-4 w-36 text-right">
               { item.sellPrice }g
             </div>
 
-            <div className="px-4 w-40 text-right">
+            <div className="px-4 w-48 text-right">
               { item.profit }g ({ item.profitMargin }%)
             </div>
 
