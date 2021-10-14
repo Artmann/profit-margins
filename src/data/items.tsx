@@ -1,4 +1,5 @@
 import React, { createContext, ReactElement, ReactNode, useEffect, useState } from 'react';
+import { LoadingOverlay } from '../components/loading-overaly';
 
 export interface Item {
   id: string;
@@ -51,6 +52,7 @@ export function ItemsProvider({ children }: ItemsProviderProps): ReactElement {
 
   return (
     <ItemsContext.Provider value={ value }>
+      <LoadingOverlay isLoading={ isLoadingItems } />
       { children }
     </ItemsContext.Provider>
   );

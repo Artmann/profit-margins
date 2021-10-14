@@ -122,7 +122,7 @@ function SearchBar(): ReactElement {
   );
 }
 
-function TrackedItemsList(): ReactElement {
+function TrackedItemsList(): ReactElement | null {
   const { items } = useContext(ItemsContext);
 
   const { trackedItemIds } = useTrackedItems();
@@ -130,11 +130,7 @@ function TrackedItemsList(): ReactElement {
   const trackedItems = items.filter(item => trackedItemIds.includes(item.id));
 
   if (trackedItems.length === 0) {
-    return (
-      <div>
-        You are not tracking any items.
-      </div>
-    );
+    return null;
   }
 
   return (
