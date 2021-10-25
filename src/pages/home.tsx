@@ -1,4 +1,5 @@
 import MiniSearch from 'minisearch';
+import moment from 'moment';
 import React, { FormEvent, ReactElement, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 
@@ -10,11 +11,18 @@ interface HomePageProps {
 }
 
 export function HomePage({ }: HomePageProps): ReactElement {
-  const { items } = useContext(ItemsContext);
+  const { items, updatedAt } = useContext(ItemsContext);
 
   return (
     <div>
-      <SearchBar />
+
+      <div className="my-8">
+        <SearchBar />
+      </div>
+
+      <div className="my-8 text-sm" title={ updatedAt }>
+        The data is { humanDate(updatedAt) } old.
+      </div>
 
       <TrackedItemsList />
 
@@ -141,4 +149,12 @@ function TrackedItemsList(): ReactElement | null {
       />
     </div>
   );
+}
+
+function humanDate(isoDate: string): string {
+  const startTime = moment(isoDate);
+  const diff = moment().diff(startTime);
+  const duration = moment.duration(diff);
+
+  return duration.humanize();
 }

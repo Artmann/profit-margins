@@ -19,11 +19,13 @@ export interface Item {
 type ItemContextProps = {
   isLoadingItems: boolean;
   items: Item[];
+  updatedAt: string;
 };
 
 export const ItemsContext = createContext<ItemContextProps>({
   isLoadingItems: false,
-  items: []
+  items: [],
+  updatedAt: ''
 });
 
 type ItemsProviderProps = {
@@ -33,13 +35,15 @@ type ItemsProviderProps = {
 export function ItemsProvider({ children }: ItemsProviderProps): ReactElement {
   const [ isLoadingItems, setIsLoadingItems ] = useState(false);
   const [ items, setItems ] = useState<Item[]>([]);
+  const [ updatedAt, setUpdatedAt ] = useState('');
 
   useEffect(() => {
 
     setIsLoadingItems(true);
 
-    loadItems().then(newitems => {
-      setItems(newitems);
+    loadItems().then(data => {
+      setItems(data.items);
+      setUpdatedAt(data.updatedAt);
       setIsLoadingItems(false);
     })
 
@@ -47,7 +51,8 @@ export function ItemsProvider({ children }: ItemsProviderProps): ReactElement {
 
   const value = {
     items,
-    isLoadingItems
+    isLoadingItems,
+    updatedAt
   };
 
   return (
@@ -58,7 +63,10 @@ export function ItemsProvider({ children }: ItemsProviderProps): ReactElement {
   );
 }
 
-async function loadItems(): Promise<Item[]> {
+async function loadItems(): Promise<{
+  items: Item[];
+  updatedAt: string;
+}> {
   const itemMap = await fetchItems();
   const itemPrices = await fetchItemPrices();
 
@@ -69,7 +77,7 @@ async function loadItems(): Promise<Item[]> {
   };
 
   const items = Object.values(itemMap).map((itemData: any): Item => {
-    const priceData  = itemPrices.find(p => p.Id === itemData.Id);
+    const priceData  = itemPrices.Auctions.find(p => p.Id === itemData.Id);
 
     const item: Item = {
       id: `${ itemData.Id }`,
@@ -88,7 +96,10 @@ async function loadItems(): Promise<Item[]> {
     return item;
   }).filter(item => item.craftingCost > 0 || item.vendorPrice > 0 || item.sellPrice > 0);
 
-  return items;
+  return {
+    items,
+    updatedAt: itemPrices.Timestamp
+  };
 }
 
 type ItemsResponse = Record<string, {
@@ -99,14 +110,19 @@ type ItemsResponse = Record<string, {
   Invalid: boolean
 }>;
 
-type ItemPriceResponse = Array<{
+type ItemPriceResponse = {
+  Auctions: ItemPricing[];
+  Timestamp: string;
+};
+
+type ItemPricing = {
   CraftingCost: number;
   Id: number;
   Name: string;
   Profit: number;
   ProfitMargin: number;
   SellPrice: number;
-}>;
+};
 
 async function fetchItems(): Promise<ItemsResponse> {
   const url = '/items.json';
