@@ -1,12 +1,12 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement } from 'react'
 
 interface LoadingOverlayProps {
-  isLoading: boolean;
+  isLoading: boolean
 }
 
 export function LoadingOverlay({ isLoading }: LoadingOverlayProps): ReactElement | null {
   if (!isLoading) {
-    return null;
+    return null
   }
 
   return (
@@ -22,5 +22,5 @@ export function LoadingOverlay({ isLoading }: LoadingOverlayProps): ReactElement
     >
       Loading...
     </div>
-  );
+  )
 }

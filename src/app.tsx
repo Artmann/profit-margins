@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react';
-import { Route, Switch } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
-import { ItemsProvider } from './data';
-import { HomePage } from './pages/home';
-import { ItemPage } from './pages/item';
+import React, { ReactElement } from 'react'
+import { Route, Switch } from 'react-router'
+import { BrowserRouter } from 'react-router-dom'
+import { ItemsProvider } from './data'
+import { HomePage } from './pages/home'
+import { ItemPage } from './pages/item'
 
 export default function App(): ReactElement {
   return (
@@ -30,5 +30,5 @@ export default function App(): ReactElement {
 
       </div>
     </div>
-  );
+  )
 }

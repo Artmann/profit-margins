@@ -1,17 +1,17 @@
-import React, { FormEvent, ReactElement, useContext } from 'react';
-import { useParams } from 'react-router';
-import { ItemsContext, useTrackedItems } from '../data';
+import React, { FormEvent, ReactElement, useContext } from 'react'
+import { useParams } from 'react-router'
+import { ItemsContext, useTrackedItems } from '../data'
 
 interface ItemPageProps {}
 
-type ItemPageParams = { id: string };
+type ItemPageParams = { id: string }
 
 export function ItemPage({ }: ItemPageProps): ReactElement {
-  const { id } = useParams<ItemPageParams>();
-  const { items } = useContext(ItemsContext);
-  const { trackedItemIds, trackItem, stopTrackingItem } = useTrackedItems();
+  const { id } = useParams<ItemPageParams>()
+  const { items } = useContext(ItemsContext)
+  const { trackedItemIds, trackItem, stopTrackingItem } = useTrackedItems()
 
-  const item = items.find(i => i.id == id);
+  const item = items.find(i => i.id == id)
 
   // Todo: Add Loading State.
 
@@ -20,20 +20,20 @@ export function ItemPage({ }: ItemPageProps): ReactElement {
       <div>
         Item not found.
       </div>
-    );
+    )
   }
 
-  const isTrackingItem = trackedItemIds.includes(item.id);
+  const isTrackingItem = trackedItemIds.includes(item.id)
 
   const trackHandler = (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (isTrackingItem) {
-      stopTrackingItem(item.id);
+      stopTrackingItem(item.id)
     } else {
-      trackItem(item.id);
+      trackItem(item.id)
     }
-  };
+  }
 
   return (
     <div>
@@ -47,5 +47,5 @@ export function ItemPage({ }: ItemPageProps): ReactElement {
         { isTrackingItem ? 'Stop Tracking Item' : 'Track Item' }
       </button>
     </div>
-  );
+  )
 }

@@ -1,7 +1,5 @@
-import MiniSearch from 'minisearch'
 import moment from 'moment'
-import React, { FormEvent, ReactElement, useContext, useEffect, useState } from 'react'
-import { useHistory } from 'react-router'
+import React, { FormEvent, ReactElement, useContext, useState } from 'react'
 
 import { ItemList } from '../components/item-list'
 import { Item, ItemsContext, useTrackedItems } from '../data'
@@ -11,139 +9,102 @@ interface HomePageProps {}
 export function HomePage({ }: HomePageProps): ReactElement {
   const { items, updatedAt } = useContext(ItemsContext)
 
+  const [ query, setQuery ] = useState('')
+
+  const queryHandler = (newQuery: string): void => {
+    setQuery(newQuery)
+  }
+
+  const filteredItems = items
+    .filter(i => i.craftingCost > 0 )
+    .filter(i => i.name.toLowerCase().includes(query.toLowerCase()))
+
   return (
-    <div>
+    <div className="h-screen w-full overflow-hidden flex flex-col py-3 text-xs">
 
-      <div className="my-8">
-        <SearchBar />
+      <div className="flex items-center justify-center py-2 mb-8">
+        <div title={ updatedAt }>
+          The data is { humanDate(updatedAt) } old.
+        </div>
       </div>
 
-      <div className="my-8 text-sm" title={ updatedAt }>
-        The data is { humanDate(updatedAt) } old.
+      <div className="py-8">
+        <SearchBar
+          onChange={ queryHandler }
+          query={ query }
+        />
       </div>
 
-      <TrackedItemsList />
+      <div className="flex-1 w-full">
+        <TrackedItemsList items={ filteredItems } />
+      </div>
 
-      <div className="mb-16" />
-
-      <ItemList
-        items={ items.filter(i => i.craftingCost > 0) }
-        title="Craftable Items"
-      />
+      <div className="h-24" />
 
     </div>
   )
 }
 
-function SearchBar(): ReactElement {
-  const history = useHistory()
+type SearchBarProps = {
+  query: string
+  onChange: (query: string) => void
+}
 
-  const [ searchQuery, setSearchQuery ] = useState('')
-  const [ showResults, setShowResults ] = useState(false)
-  const [ miniSearch, setMinisearch ] = useState<MiniSearch>()
-
-  const { items } = useContext(ItemsContext)
-
-  useEffect(() => {
-    const ms = new MiniSearch<Item>({
-      fields: [ 'name' ],
-      storeFields: [ 'id', 'name' ]
-    })
-
-    ms.addAll(items)
-
-    setMinisearch(ms)
-  }, [ items ])
-
-  const matchingItems = miniSearch?.search(searchQuery) || []
-
+function SearchBar({ onChange, query }: SearchBarProps): ReactElement {
   const onQueryChanged = (e: FormEvent<HTMLInputElement>): void => {
-    setSearchQuery(e.currentTarget.value)
-
-    setShowResults(true)
-  }
-  const onSubmit = (e: FormEvent): void => {
-    e.preventDefault()
-
-    if (matchingItems.length > 0) {
-      const [ firstMatchingItem ] = matchingItems
-
-      history.push(`/items/${ firstMatchingItem.id }`)
-    }
-
-    setShowResults(false)
-  }
-
-  const onSelectedItem = (itemId: string) => {
-    history.push(`/items/${ itemId }`)
+    onChange(e.currentTarget.value)
   }
 
   return (
     <div className="w-full">
       <form
         className="w-full"
-        onSubmit={ onSubmit }
       >
-        <label
-          className="block"
-          htmlFor="search"
-        >
-          Search for items
-        </label>
-
         <div
-          className="relative w-96"
+          className="relative w-full max-w-lg"
         >
           <input
             autoFocus={ true }
             autoComplete="off"
-            className="w-full"
+            className={`
+              bg-transparent
+              border border-slate-600
+              block
+              px-4 py-2
+              text-sm
+              outline-none
+              w-full
+            `}
             id="search"
             onChange={ onQueryChanged }
+            placeholder="Search for items..."
             type="search"
-            value={ searchQuery }
+            value={ query }
           />
-
-          {
-            showResults &&
-            <div
-              className="absolute bg-white p-2 z-50 w-full"
-            >
-              {
-                matchingItems.slice(0, 6).map(result => (
-                  <div
-                    className="w-full"
-                    key={ result.id }
-                    onClick={ () => onSelectedItem(result.id) }
-                  >
-                    { result.name }
-                  </div>
-                ))
-              }
-            </div>
-          }
         </div>
       </form>
     </div>
   )
 }
 
-function TrackedItemsList(): ReactElement | null {
-  const { items } = useContext(ItemsContext)
+type TrackedItemsListProps = {
+  items: Item[]
+}
 
-  const { trackedItemIds } = useTrackedItems()
+function TrackedItemsList({ items }: TrackedItemsListProps): ReactElement | null {
+  const { trackedItemIds, trackItem, stopTrackingItem } = useTrackedItems()
 
   const trackedItems = items.filter(item => trackedItemIds.includes(item.id))
 
-  if (trackedItems.length === 0) {
-    return null
-  }
+  console.log(trackedItemIds)
 
   return (
-    <div>
+    <div className="h-full w-full">
       <ItemList
-        items={ trackedItems }
-        title="Your Favorite Items"
+        items={ items }
+        trackedItems={ trackedItems }
+        startTrackingItem={ trackItem }
+        stopTrackingItem={ stopTrackingItem }
       />
     </div>
   )
