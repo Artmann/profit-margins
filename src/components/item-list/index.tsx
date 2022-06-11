@@ -1,32 +1,32 @@
-import React, { ReactElement, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { ReactElement, useState } from 'react'
+import { Link } from 'react-router-dom'
 
-import { Item } from '../../data';
+import { Item } from '../../data'
 
 interface ItemListProps {
-  items: Item[];
-  title: string;
+  items: Item[]
+  title: string
 }
 
 export function ItemList({ items, title }: ItemListProps): ReactElement {
-  const [ sortBy, setSortBy ] = useState('name');
-  const [ sortAsc, setSortAsc ] = useState(true);
+  const [ sortBy, setSortBy ] = useState('name')
+  const [ sortAsc, setSortAsc ] = useState(true)
 
   const sortedItems = items.sort((a: Item, b: Item): number => {
-    const p1 = (a as Record<string, any>)[sortBy];
-    const p2 = (b as Record<string, any>)[sortBy];
-    const sortOrder = sortAsc ? 1 : -1;
+    const p1 = (a as Record<string, any>)[sortBy]
+    const p2 = (b as Record<string, any>)[sortBy]
+    const sortOrder = sortAsc ? 1 : -1
 
-    return (p1 >= p2 ? 1 : -1) * sortOrder;
-  });
+    return (p1 >= p2 ? 1 : -1) * sortOrder
+  })
 
   const onSortBy = (prop: string) => {
     if (prop === sortBy) {
-      setSortAsc(!sortAsc);
+      setSortAsc(!sortAsc)
     } else {
-      setSortBy(prop);
+      setSortBy(prop)
     }
-  };
+  }
 
   return (
     <div>
@@ -103,5 +103,5 @@ export function ItemList({ items, title }: ItemListProps): ReactElement {
       }
 
     </div>
-  );
+  )
 }

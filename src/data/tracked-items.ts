@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
 type UseTrackedItems = {
   trackedItemIds: string[];
@@ -7,25 +7,25 @@ type UseTrackedItems = {
 }
 
 export function useTrackedItems(): UseTrackedItems {
-  const [ itemIds, setItemIds ] = useState<string[]>(loadTrackedItems);
+  const [ itemIds, setItemIds ] = useState<string[]>(loadTrackedItems)
 
   const trackItem = (itemId: string): void => {
-    const newIds = [ ...loadTrackedItems(), itemId ];
+    const newIds = [ ...loadTrackedItems(), itemId ]
 
-    setItemIds(newIds);
+    setItemIds(newIds)
 
-    saveItemIds(newIds);
-  };
+    saveItemIds(newIds)
+  }
 
   const stopTrackingItem = (itemId: string): void => {
-    const trackedItems = loadTrackedItems();
+    const trackedItems = loadTrackedItems()
 
-    const newIds = trackedItems.filter(id => id !== itemId);
+    const newIds = trackedItems.filter(id => id !== itemId)
 
-    setItemIds(newIds);
+    setItemIds(newIds)
 
-    saveItemIds(newIds);
-  };
+    saveItemIds(newIds)
+  }
 
   return {
     trackedItemIds: itemIds,
@@ -35,19 +35,19 @@ export function useTrackedItems(): UseTrackedItems {
 }
 
 function loadTrackedItems(): string[] {
-  const json = localStorage.getItem('tracked-item-ids');
+  const json = localStorage.getItem('tracked-item-ids')
 
   if (!json) {
-    return [];
+    return []
   }
 
-  const ids = JSON.parse(json) as string[];
+  const ids = JSON.parse(json) as string[]
 
-  return ids;
+  return ids
 }
 
 function saveItemIds(ids: string[]): void {
-  const json = JSON.stringify(ids);
+  const json = JSON.stringify(ids)
 
-  localStorage.setItem('tracked-item-ids', json);
+  localStorage.setItem('tracked-item-ids', json)
 }

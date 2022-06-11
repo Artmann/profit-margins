@@ -1,17 +1,15 @@
-import MiniSearch from 'minisearch';
-import moment from 'moment';
-import React, { FormEvent, ReactElement, useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import MiniSearch from 'minisearch'
+import moment from 'moment'
+import React, { FormEvent, ReactElement, useContext, useEffect, useState } from 'react'
+import { useHistory } from 'react-router'
 
-import { ItemList } from '../components/item-list';
-import { Item, ItemsContext, useTrackedItems } from '../data';
+import { ItemList } from '../components/item-list'
+import { Item, ItemsContext, useTrackedItems } from '../data'
 
-interface HomePageProps {
-
-}
+interface HomePageProps {}
 
 export function HomePage({ }: HomePageProps): ReactElement {
-  const { items, updatedAt } = useContext(ItemsContext);
+  const { items, updatedAt } = useContext(ItemsContext)
 
   return (
     <div>
@@ -34,51 +32,51 @@ export function HomePage({ }: HomePageProps): ReactElement {
       />
 
     </div>
-  );
+  )
 }
 
 function SearchBar(): ReactElement {
-  const history = useHistory();
+  const history = useHistory()
 
-  const [ searchQuery, setSearchQuery ] = useState('');
-  const [ showResults, setShowResults ] = useState(false);
-  const [ miniSearch, setMinisearch ] = useState<MiniSearch>();
+  const [ searchQuery, setSearchQuery ] = useState('')
+  const [ showResults, setShowResults ] = useState(false)
+  const [ miniSearch, setMinisearch ] = useState<MiniSearch>()
 
-  const { items } = useContext(ItemsContext);
+  const { items } = useContext(ItemsContext)
 
   useEffect(() => {
     const ms = new MiniSearch<Item>({
       fields: [ 'name' ],
       storeFields: [ 'id', 'name' ]
-    });
+    })
 
-    ms.addAll(items);
+    ms.addAll(items)
 
-    setMinisearch(ms);
-  }, [ items ]);
+    setMinisearch(ms)
+  }, [ items ])
 
-  const matchingItems = miniSearch?.search(searchQuery) || [];
+  const matchingItems = miniSearch?.search(searchQuery) || []
 
   const onQueryChanged = (e: FormEvent<HTMLInputElement>): void => {
-    setSearchQuery(e.currentTarget.value);
+    setSearchQuery(e.currentTarget.value)
 
-    setShowResults(true);
-  };
+    setShowResults(true)
+  }
   const onSubmit = (e: FormEvent): void => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (matchingItems.length > 0) {
-      const [ firstMatchingItem ] = matchingItems;
+      const [ firstMatchingItem ] = matchingItems
 
-      history.push(`/items/${ firstMatchingItem.id }`);
+      history.push(`/items/${ firstMatchingItem.id }`)
     }
 
-    setShowResults(false);
-  };
+    setShowResults(false)
+  }
 
   const onSelectedItem = (itemId: string) => {
-    history.push(`/items/${ itemId }`);
-  };
+    history.push(`/items/${ itemId }`)
+  }
 
   return (
     <div className="w-full">
@@ -127,18 +125,18 @@ function SearchBar(): ReactElement {
         </div>
       </form>
     </div>
-  );
+  )
 }
 
 function TrackedItemsList(): ReactElement | null {
-  const { items } = useContext(ItemsContext);
+  const { items } = useContext(ItemsContext)
 
-  const { trackedItemIds } = useTrackedItems();
+  const { trackedItemIds } = useTrackedItems()
 
-  const trackedItems = items.filter(item => trackedItemIds.includes(item.id));
+  const trackedItems = items.filter(item => trackedItemIds.includes(item.id))
 
   if (trackedItems.length === 0) {
-    return null;
+    return null
   }
 
   return (
@@ -148,13 +146,13 @@ function TrackedItemsList(): ReactElement | null {
         title="Your Favorite Items"
       />
     </div>
-  );
+  )
 }
 
 function humanDate(isoDate: string): string {
-  const startTime = moment(isoDate);
-  const diff = moment().diff(startTime);
-  const duration = moment.duration(diff);
+  const startTime = moment(isoDate)
+  const diff = moment().diff(startTime)
+  const duration = moment.duration(diff)
 
-  return duration.humanize();
+  return duration.humanize()
 }

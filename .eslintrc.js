@@ -49,6 +49,7 @@ module.exports = {
     'no-throw-literal': 'error',
     'no-use-before-define': 'off',
     'prefer-promise-reject-errors': 'error',
-    'quotes': [ 'error', 'single' ]
+    'quotes': [ 'error', 'single' ],
+    'semi': [ 'error', 'never' ]
   }
 };
