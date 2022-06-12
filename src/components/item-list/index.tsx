@@ -96,7 +96,7 @@ export function ItemList({
 
         <div className={ columnClasses.icon }>
           <a
-            href="https://tbc.wowhead.com/item=30212"
+            href={ `https://tbc.wowhead.com/item=${ item.id }` }
             rel="noreferrer"
             target="_blank"
           >
