@@ -12131,10 +12131,8 @@ watchpack@^1.7.4:
   resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-1.7.5.tgz#1267e6c55e0b9b5be44c2023aed5437a2c26c453"
   integrity sha512-9P3MWk6SrKjHsGkLT2KHXdQ/9SNkyoJbabxnKOoJepsvJjJG8uYTR3yTPxPQvNDI3w4Nz1xnE0TLHK4RIVe/MQ==
   dependencies:
-    chokidar "^3.4.1"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
-    watchpack-chokidar2 "^2.0.1"
   optionalDependencies:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"
@@ -12514,11 +12512,6 @@ worker-rpc@^0.1.0:
   integrity sha512-P1WjMrUB3qgJNI9jfmpZ/htmBEjFh//6l/5y8SD9hg1Ef5zTTVVoRjTrTEzPrNBQvmhMxkoTsjOXN10GWU7aCg==
   dependencies:
     microevent.ts "~0.1.1"
-
-wow-classic-items@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/wow-classic-items/-/wow-classic-items-1.0.0.tgz#144d97add824935ef3773d9047a0c47e0a762842"
-  integrity sha512-JQLIRvexyJGdNWQ87LQpfWM49+kBEhU1TV60EiBkI+i88rimNAb77HEqNx5LX1UUmVI5FP4SdDm0J9ZhnlGanQ==
 
 wrap-ansi@^5.1.0:
   version "5.1.0"

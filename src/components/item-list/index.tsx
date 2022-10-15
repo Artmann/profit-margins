@@ -96,7 +96,7 @@ export function ItemList({
 
         <div className={ columnClasses.icon }>
           <a
-            href={ `https://tbc.wowhead.com/item=${ item.id }` }
+            href={ `https://www.wowhead.com/wotlk/item=${ item.id }` }
             rel="noreferrer"
             target="_blank"
           >
@@ -146,6 +146,7 @@ export function ItemList({
       </div>
     )
   }
+
   return (
     <div className="flex flex-col h-full w-full">
 
